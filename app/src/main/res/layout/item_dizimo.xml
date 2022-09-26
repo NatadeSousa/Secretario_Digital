@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="@dimen/default_size"
+    android:layout_marginVertical="@dimen/half_default_size"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/bg_item_dizimo"
@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="3dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/default_size"
+        android:textColor="@color/green"
         android:textSize="15sp"
         tools:text="Nome : José Carlos" />
 
@@ -26,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="1dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/default_size"
+        android:textColor="@color/green"
         android:textSize="15sp"
         tools:text="Valor: R$ 50,00" />
 
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="6dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/default_size"
+        android:textColor="@color/green"
         android:textSize="15sp"
         tools:text="Data: 24/09/2022" />
 

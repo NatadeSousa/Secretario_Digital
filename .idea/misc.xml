@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/bg_btn.xml" value="0.135" />
         <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/bg_item_dizimo.xml" value="0.135" />
         <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/bg_round.xml" value="0.135" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/ic_filter_beatiful.xml" value="0.135" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/ic_filter_beautiful.xml" value="0.135" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/ic_filter_white_horizontal.xml" value="0.135" />
         <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/drawable/ic_plus.xml" value="0.135" />
-        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/activity_registro_de_dizimo.xml" value="0.25" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/activity_registro_de_entrada.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/item_dizimo.xml" value="0.33" />
         <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/toolbar_main_activity.xml" value="0.25" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/toolbar_registro_de_dizimo.xml" value="0.286231884057971" />
+        <entry key="..\:/Users/Ins1ghtful/Documents/My_Apps/Secretario_Digital/app/src/main/res/layout/toolbar_registro_de_entrada.xml" value="0.25" />
       </map>
     </option>
   </component>
