@@ -11,4 +11,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="word_dizimos">Dízimos</string>
     <string name="text_dizimo">Registro de dízimos</string>
+    <string name="text_info_dizimo">Informe abaixo o dizimista, o valor do dízimo e a data em que foi realizado o dízimo</string>
+    <string name="word_registrar">Registrar</string>
+    <string name="text_nome">Nome</string>
+    <string name="text_valor">Valor</string>
+    <string name="text_data">Data</string>
 </resources>

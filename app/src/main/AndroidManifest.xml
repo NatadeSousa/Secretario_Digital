@@ -14,18 +14,24 @@ package="secretario_digital">
     tools:targetApi="31">
     <activity
         android:name="com.example.secretario_digital.MainActivity"
-        android:exported="true">
+        android:exported="false"
+        android:screenOrientation="portrait">
+
+    </activity>
+
+    <activity
+        android:name="com.example.secretario_digital.RegistroDeDizimo"
+        android:exported="true"
+        android:screenOrientation="portrait"
+        >
+
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-    </activity>
 
-    <activity
-        android:name="com.example.secretario_digital.RegistroDeDizimo"
-        android:exported="false"
-        />
+    </activity>
 
 </application>
 
