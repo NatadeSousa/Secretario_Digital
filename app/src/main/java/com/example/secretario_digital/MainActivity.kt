@@ -22,5 +22,5 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
     }
 
-    //Just testing git
+    //I'M ON TESTING BRANCH
 }
