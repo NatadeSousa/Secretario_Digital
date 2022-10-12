@@ -10,10 +10,15 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="word_dizimos">Dízimos</string>
+    <string name="word_nome">Nome</string>
+    <string name="word_null">null</string>
     <string name="text_dizimo">Registro de dízimos</string>
-    <string name="text_info_dizimo">Informe abaixo o dizimista, o valor do dízimo e a data em que foi realizado o dízimo</string>
+    <string name="text_info_dizimo">Respectivamente, informe abaixo quem foi o dizimista, o valor do dízimo e a data em que foi realizado o dízimo</string>
     <string name="word_registrar">Registrar</string>
     <string name="text_nome">Nome</string>
     <string name="text_valor">Valor</string>
     <string name="text_data">Data</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_escolha">Selecione o dizimista</string>
 </resources>

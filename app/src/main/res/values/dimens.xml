@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-      <dimen name="text_size_toolbar">20dp</dimen>
+      <dimen name="text_size_toolbar">18sp</dimen>
       <dimen name="double_of_default_size">32dp</dimen>
       <dimen name="default_size">16dp</dimen>
       <dimen name="half_default_size">8dp</dimen>

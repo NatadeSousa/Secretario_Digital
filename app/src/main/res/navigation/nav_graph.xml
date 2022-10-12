@@ -3,26 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/registroDeDizimoFragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.secretario_digital.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
+        android:id="@+id/listaDeDizimos"
+        android:name="com.example.secretario_digital.ListaDeDizimos"
+        android:label="fragment_lista_de_dizimos"
+        tools:layout="@layout/fragment_lista_de_dizimos" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_listaDeDizimos_to_registroDeDizimoFragment"
+            app:destination="@id/registroDeDizimoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.secretario_digital.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-
+        android:id="@+id/registroDeDizimoFragment"
+        android:name="com.example.secretario_digital.RegistroDeDizimoFragment"
+        android:label="fragment_registro_de_dizimo"
+        tools:layout="@layout/fragment_registro_de_dizimo" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_registroDeDizimoFragment_to_listaDeDizimos"
+            app:destination="@id/listaDeDizimos" />
+        <action
+            android:id="@+id/action_registroDeDizimoFragment_to_listaDeMembros"
+            app:destination="@id/listaDeMembros" />
+        <argument
+            android:name="nome"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/listaDeMembros"
+        android:name="com.example.secretario_digital.ListaDeMembros"
+        android:label="fragment_lista_de_membros"
+        tools:layout="@layout/activity_lista_de_membros" >
+        <action
+            android:id="@+id/action_listaDeMembros_to_registroDeDizimoFragment"
+            app:destination="@id/registroDeDizimoFragment" />
+
     </fragment>
 </navigation>

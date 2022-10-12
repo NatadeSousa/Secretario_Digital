@@ -1,8 +1,8 @@
-package com.example.secretario_digital.helper
+package com.example.secretario_digital.data
 
 class Membros() {
-    companion object{
-        private val dizimistas = listOf(
+    public fun loadData(): List<String>{
+        return listOf(
             "Pr. Paulo Roberto",
             "Ev. Jurandir",
             "Ev. Luis Antônio",
@@ -21,4 +21,5 @@ class Membros() {
             "Ir. Érica"
         )
     }
+
 }

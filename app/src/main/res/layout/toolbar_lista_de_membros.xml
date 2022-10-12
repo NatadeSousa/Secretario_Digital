@@ -23,7 +23,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_dizimo"
+        android:text="@string/text_escolha"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,6 +36,7 @@
         android:layout_height="1dp"
         android:background="@color/light_blue"
         android:alpha="0.7"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -7,7 +7,7 @@
     android:background="@color/darker_blue">
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btn_get_back"
+        android:id="@+id/btn_voltar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingStart="20dp"
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:text="@string/text_dizimo"
         android:textColor="@color/white"
-        android:textSize="@dimen/default_size"
+        android:textSize="@dimen/text_size_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_get_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_voltar"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpUsage" />
 

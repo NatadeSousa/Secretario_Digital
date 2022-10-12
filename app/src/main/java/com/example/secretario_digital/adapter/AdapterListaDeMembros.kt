@@ -9,9 +9,8 @@ import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secretario_digital.ListaDeMembrosDirections
-import com.example.secretario_digital.R
 import com.example.secretario_digital.RegistroDeDizimoFragment
-
+import com.example.secretario_digital.R
 
 
 class AdapterListaDeMembros(
