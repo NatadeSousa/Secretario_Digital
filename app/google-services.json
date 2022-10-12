@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "32091982552",
+    "project_id": "secretario-eletronico",
+    "storage_bucket": "secretario-eletronico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32091982552:android:9d255c7a188a159587a5ad",
+        "android_client_info": {
+          "package_name": "com.example.secretario_digital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32091982552-ne0m14dv0sclmn8t2ip5ieosukoj0koj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.secretario_digital",
+            "certificate_hash": "5b7ed702964c60c3884d41951cff2563c7c408ce"
+          }
+        },
+        {
+          "client_id": "32091982552-fpj9jke60dlhq1d3l50g7f98lmllukea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGDrTPxaT9a1HhWC0isIW4c6Zjvk5Vk0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32091982552-fpj9jke60dlhq1d3l50g7f98lmllukea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
