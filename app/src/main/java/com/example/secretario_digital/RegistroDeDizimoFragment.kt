@@ -42,8 +42,7 @@ class RegistroDeDizimoFragment : Fragment() {
 
     private val dizimoAtual = Dizimo()
 
-    private val sharedPrefs =
-        context?.getSharedPreferences("FILE_PREFERENCES", Context.MODE_PRIVATE)
+
 
     private lateinit var databaseReference: DatabaseReference
     lateinit var inputLayout2: TextInputLayout
@@ -82,23 +81,22 @@ class RegistroDeDizimoFragment : Fragment() {
         activateTextListeners()
         setClicks()
 
-        val edito1 = sharedPrefs?.edit()
-        edito1?.putString(KEY_VALUE,"testing")
-        edito1?.apply()
-        var editado1 = sharedPrefs?.getString(KEY_VALUE,"CHUCRUTI")
-        //IDE TAVA COM UM BUG. PROBLEMA NO SHARED RESOLVIDO DEIXANDO A VARIÁVEL Q FAZ REFERENCIA
-        //A ELE AQUI NO MESMO ESCOPO DO EDITOR
-        Log.i(MSG,"Shared: $editado1")
+        //SHARED PREFERENCES IS WORKING. NOW I JUST NEED TO SET IT PROPERLY TO WORK WITH MY
+        //EDIT TEXTS
+        val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.clear()
+        editor?.apply()
 
-//        val spData = sharedPreferences?.getString(KEY_DATE,"spData")
-//        val spDizimo = sharedPreferences?.getString(KEY_VALUE,"spDizimo")
+        val spData = sharedPreferences?.getString(KEY_DATE,"spData")
+        val spDizimo = sharedPreferences?.getString(KEY_VALUE,"spDizimo")
 
-//        if(spData != "spData" && spData != "null" && spData != null){
-//            editDizimo.setText(spData.toString())
-//        }
-//        if(spDizimo != "spDizimo" && spData != "null" && spData != null){
-//            editData.setText(spDizimo.toString())
-//        }
+        if(spData != "spData" && spData != "null" && spData != null){
+            editDizimo.setText(spData.toString())
+        }
+        if(spDizimo != "spDizimo" && spData != "null" && spData != null){
+            editData.setText(spDizimo.toString())
+        }
     }
 
     override fun onDestroyView() {
@@ -115,13 +113,15 @@ class RegistroDeDizimoFragment : Fragment() {
 
         btnNome.setOnClickListener {
 
+            val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
+
             //Verificando se os campos de dízimo e data já foram preenchidos, para então salvar
-            // o dízimo e data caso o usuário tenha clicado para selecionar o dizimista depois
-            val editor = sharedPrefs?.edit()
+            //o dízimo e data caso o usuário tenha clicado para selecionar o dizimista depois
+            val editor = sharedPreferences?.edit()
             if(editDizimo.text.toString().isNotEmpty()){
                 editor?.putString(KEY_VALUE,editDizimo.text.toString())
                 editor?.apply()
-                val shared = sharedPrefs?.getString(KEY_VALUE,"0")
+                val shared = sharedPreferences?.getString(KEY_VALUE,"0")
                 Log.i(MSG,"Shared:  $shared")
             }
             if(editData.text.toString().isNotEmpty()){
