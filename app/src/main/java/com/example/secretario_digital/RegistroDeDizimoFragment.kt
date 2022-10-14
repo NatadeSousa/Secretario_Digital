@@ -2,6 +2,7 @@ package com.example.secretario_digital
 
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -36,12 +37,13 @@ class RegistroDeDizimoFragment : Fragment() {
 
     private val KEY_DATE = "date"
     private val KEY_VALUE = "value"
+    private val KEY_VALUE1 = "valuee"
     private val MSG = "RegistroDeDizimo"
 
     private val dizimoAtual = Dizimo()
 
-//    private val sharedPreferences =
-//        context?.getSharedPreferences("DIZIMO_DATA", Context.MODE_PRIVATE)
+    private val sharedPrefs =
+        context?.getSharedPreferences("FILE_PREFERENCES", Context.MODE_PRIVATE)
 
     private lateinit var databaseReference: DatabaseReference
     lateinit var inputLayout2: TextInputLayout
@@ -59,7 +61,6 @@ class RegistroDeDizimoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
         arguments?.let {
             nomeDizimista = it.getString("nome").toString()
         }
@@ -76,17 +77,23 @@ class RegistroDeDizimoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         referComponents()
         setBtnNome()
         activateTextListeners()
         setClicks()
 
+        val edito1 = sharedPrefs?.edit()
+        edito1?.putString(KEY_VALUE,"testing")
+        edito1?.apply()
+        var editado1 = sharedPrefs?.getString(KEY_VALUE,"CHUCRUTI")
+        //IDE TAVA COM UM BUG. PROBLEMA NO SHARED RESOLVIDO DEIXANDO A VARIÁVEL Q FAZ REFERENCIA
+        //A ELE AQUI NO MESMO ESCOPO DO EDITOR
+        Log.i(MSG,"Shared: $editado1")
+
 //        val spData = sharedPreferences?.getString(KEY_DATE,"spData")
 //        val spDizimo = sharedPreferences?.getString(KEY_VALUE,"spDizimo")
 
 //        if(spData != "spData" && spData != "null" && spData != null){
-//            Log.i(MSG,"Spdata: $spData")
 //            editDizimo.setText(spData.toString())
 //        }
 //        if(spDizimo != "spDizimo" && spData != "null" && spData != null){
@@ -110,18 +117,20 @@ class RegistroDeDizimoFragment : Fragment() {
 
             //Verificando se os campos de dízimo e data já foram preenchidos, para então salvar
             // o dízimo e data caso o usuário tenha clicado para selecionar o dizimista depois
-//            val editor = sharedPreferences?.edit()
-//            if(editDizimo.text.toString().isNotEmpty()){
-//                editor?.putString(KEY_VALUE,editDizimo.toString())
-//                editor?.apply()
-//            }
-//            if(editData.text.toString().isNotEmpty()){
-//                editor?.putString(KEY_DATE,editData.toString())
-//                editor?.apply()
-//            }
+            val editor = sharedPrefs?.edit()
+            if(editDizimo.text.toString().isNotEmpty()){
+                editor?.putString(KEY_VALUE,editDizimo.text.toString())
+                editor?.apply()
+                val shared = sharedPrefs?.getString(KEY_VALUE,"0")
+                Log.i(MSG,"Shared:  $shared")
+            }
+            if(editData.text.toString().isNotEmpty()){
+                editor?.putString(KEY_DATE,editData.text.toString())
+                editor?.apply()
+            }
 
             val action =
-                findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
+                findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeMembros)
         }
 
         btnRegistrar.setOnClickListener {
