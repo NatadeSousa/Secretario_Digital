@@ -18,6 +18,7 @@
     <string name="text_nome">Nome</string>
     <string name="text_valor">Valor</string>
     <string name="text_data">Data</string>
+    <string name="edit_dizimo">1000</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_escolha">Selecione o dizimista</string>

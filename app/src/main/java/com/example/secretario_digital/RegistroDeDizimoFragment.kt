@@ -29,6 +29,7 @@ import com.marcoscg.currencyedittext.CurrencyEditText
 import com.santalu.maskara.widget.MaskEditText
 import com.example.secretario_digital.R
 import com.example.secretario_digital.databinding.FragmentRegistroDeDizimoBinding
+import java.lang.String.valueOf
 
 
 class RegistroDeDizimoFragment : Fragment() {
@@ -36,12 +37,9 @@ class RegistroDeDizimoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val KEY_DATE = "date"
-    private val KEY_VALUE = "value"
-    private val KEY_VALUE1 = "valuee"
     private val MSG = "RegistroDeDizimo"
 
     private val dizimoAtual = Dizimo()
-
 
 
     private lateinit var databaseReference: DatabaseReference
@@ -61,7 +59,16 @@ class RegistroDeDizimoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         arguments?.let {
+
             nomeDizimista = it.getString("nome").toString()
+            //Limpando FILE_PREFERENCES caso seja a primeira vez que eu tenha aberto esse fragment
+            if(nomeDizimista == "null" || nomeDizimista == "Nome"){
+                val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES",
+                    MODE_PRIVATE)
+                val editor = sharedPreferences?.edit()
+                editor?.clear()
+                editor?.apply()
+            }
         }
     }
 
@@ -81,27 +88,22 @@ class RegistroDeDizimoFragment : Fragment() {
         activateTextListeners()
         setClicks()
 
-        //SHARED PREFERENCES IS WORKING. NOW I JUST NEED TO SET IT PROPERLY TO WORK WITH MY
-        //EDIT TEXTS
         val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
-        val editor = sharedPreferences?.edit()
-        editor?.clear()
-        editor?.apply()
 
-        val spData = sharedPreferences?.getString(KEY_DATE,"spData")
-        val spDizimo = sharedPreferences?.getString(KEY_VALUE,"spDizimo")
+        val spData = sharedPreferences?.getString(KEY_DATE, "spData")
 
-        if(spData != "spData" && spData != "null" && spData != null){
-            editDizimo.setText(spData.toString())
+        if (spData != "spData" && spData != "null" && spData != null) {
+            editData.setText(spData.toString())
         }
-        if(spDizimo != "spDizimo" && spData != "null" && spData != null){
-            editData.setText(spDizimo.toString())
-        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val sharedPrefs = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
+        val editor = sharedPrefs?.edit()
+
     }
 
     private fun setClicks() {
@@ -113,24 +115,21 @@ class RegistroDeDizimoFragment : Fragment() {
 
         btnNome.setOnClickListener {
 
-            val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
-
             //Verificando se os campos de dízimo e data já foram preenchidos, para então salvar
             //o dízimo e data caso o usuário tenha clicado para selecionar o dizimista depois
-            val editor = sharedPreferences?.edit()
-            if(editDizimo.text.toString().isNotEmpty()){
-                editor?.putString(KEY_VALUE,editDizimo.text.toString())
-                editor?.apply()
-                val shared = sharedPreferences?.getString(KEY_VALUE,"0")
-                Log.i(MSG,"Shared:  $shared")
-            }
             if(editData.text.toString().isNotEmpty()){
+                val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
+                val editor = sharedPreferences?.edit()
                 editor?.putString(KEY_DATE,editData.text.toString())
+                editor?.apply()
+            }else{
+                val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
+                val editor = sharedPreferences?.edit()
+                editor?.clear()
                 editor?.apply()
             }
 
-            val action =
-                findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeMembros)
+            findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeMembros)
         }
 
         btnRegistrar.setOnClickListener {
@@ -209,9 +208,6 @@ class RegistroDeDizimoFragment : Fragment() {
                 if (data.isNotEmpty()) {
                     if (data.length == 10) {
 
-                        btnRegistrar.visibility = View.INVISIBLE
-                        pbRegistroDeDizimo.visibility = View.VISIBLE
-
                         with(dizimoAtual){
                             dataDizimo = data
                             valorDizimo = dizimo
@@ -241,14 +237,19 @@ class RegistroDeDizimoFragment : Fragment() {
     }
 
     private fun saveData() {
+        btnRegistrar.visibility = View.INVISIBLE
+        pbRegistroDeDizimo.visibility = View.VISIBLE
+        //A ANIMAÇÃO DE CARREGAMENTO DO BOTÃO REGISTRAR NÃO ESTÁ FUNCIONANDO
+        //TENTE VER SE O PROBLEMA É TROCANDO O JEITO DE TROCAR A VISIBILIDADE OU SE VOCÊ PRECISA
+        //FAZER ALGO DIFERENTE DE COLOCAR TUDO EM UM FRAMELAYOUT
+        Log.i(MSG,"Pb está: ${pbRegistroDeDizimo.visibility}")
+
         val nomeFormatado = dizimoAtual.nomeDizimista?.replace(".", "")
         databaseReference
             .child("dizimos")
             .child("Nome: $nomeFormatado")
             .setValue(dizimoAtual).addOnCompleteListener(requireActivity()){ task ->
-                //ADJUST THREAD.SLEEP
                 if(task.isSuccessful){
-                    Thread.sleep(1300)
                     Toast.makeText(context, "Dízimo registrado!", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
                 }else{
@@ -256,6 +257,8 @@ class RegistroDeDizimoFragment : Fragment() {
                 }
             }
         pbRegistroDeDizimo.visibility = View.GONE
+        Log.i(MSG,"Pb está: ${pbRegistroDeDizimo.visibility}")
+
         btnRegistrar.visibility = View.VISIBLE
 
     }
