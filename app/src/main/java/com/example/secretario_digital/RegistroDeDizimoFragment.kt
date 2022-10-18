@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -43,6 +44,7 @@ class RegistroDeDizimoFragment : Fragment() {
 
 
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var layoutBtnRegistrar: LinearLayout
     lateinit var inputLayout2: TextInputLayout
     lateinit var inputLayout3: TextInputLayout
     private lateinit var editDizimo: CurrencyEditText
@@ -114,7 +116,6 @@ class RegistroDeDizimoFragment : Fragment() {
         }
 
         btnNome.setOnClickListener {
-
             //Verificando se os campos de dízimo e data já foram preenchidos, para então salvar
             //o dízimo e data caso o usuário tenha clicado para selecionar o dizimista depois
             if(editData.text.toString().isNotEmpty()){
@@ -208,6 +209,11 @@ class RegistroDeDizimoFragment : Fragment() {
                 if (data.isNotEmpty()) {
                     if (data.length == 10) {
 
+                        btnRegistrar.visibility = View.GONE
+                        layoutBtnRegistrar.setPadding(16,16,16,16)
+                        pbRegistroDeDizimo.visibility = View.VISIBLE
+                        Log.i(MSG,"PbRegistro visibilidade: ${pbRegistroDeDizimo.visibility}")
+
                         with(dizimoAtual){
                             dataDizimo = data
                             valorDizimo = dizimo
@@ -231,18 +237,12 @@ class RegistroDeDizimoFragment : Fragment() {
                 ).show()
             }
         } else {
-            Toast.makeText(context, "Informe seu nome!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Informe o nome do dizimista!", Toast.LENGTH_LONG).show()
         }
 
     }
 
     private fun saveData() {
-        btnRegistrar.visibility = View.INVISIBLE
-        pbRegistroDeDizimo.visibility = View.VISIBLE
-        //A ANIMAÇÃO DE CARREGAMENTO DO BOTÃO REGISTRAR NÃO ESTÁ FUNCIONANDO
-        //TENTE VER SE O PROBLEMA É TROCANDO O JEITO DE TROCAR A VISIBILIDADE OU SE VOCÊ PRECISA
-        //FAZER ALGO DIFERENTE DE COLOCAR TUDO EM UM FRAMELAYOUT
-        Log.i(MSG,"Pb está: ${pbRegistroDeDizimo.visibility}")
 
         val nomeFormatado = dizimoAtual.nomeDizimista?.replace(".", "")
         databaseReference
@@ -250,16 +250,22 @@ class RegistroDeDizimoFragment : Fragment() {
             .child("Nome: $nomeFormatado")
             .setValue(dizimoAtual).addOnCompleteListener(requireActivity()){ task ->
                 if(task.isSuccessful){
+                    //VALIDAR O ERRO DE QUANDO O USUÁRIO NÃO ESTIVER CONECTADO À INTERNET
                     Toast.makeText(context, "Dízimo registrado!", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
+                    layoutBtnRegistrar.setPadding(0,0,0,0)
+                    pbRegistroDeDizimo.visibility = View.GONE
+                    btnRegistrar.visibility = View.VISIBLE
                 }else{
                     Toast.makeText(context, "Tente novamente mais tarde!", Toast.LENGTH_SHORT).show()
+                    layoutBtnRegistrar.setPadding(0,0,0,0)
+                    pbRegistroDeDizimo.visibility = View.GONE
+                    btnRegistrar.visibility = View.VISIBLE
                 }
             }
-        pbRegistroDeDizimo.visibility = View.GONE
-        Log.i(MSG,"Pb está: ${pbRegistroDeDizimo.visibility}")
 
-        btnRegistrar.visibility = View.VISIBLE
+
+
 
     }
 
@@ -289,6 +295,7 @@ class RegistroDeDizimoFragment : Fragment() {
 
     private fun referComponents() {
         databaseReference = Firebase.database.reference
+        layoutBtnRegistrar = binding.layoutBtnRegistrar
         inputLayout2 = binding.inputLayout2
         inputLayout3 = binding.inputLayout3
         editDizimo = binding.editDizimo

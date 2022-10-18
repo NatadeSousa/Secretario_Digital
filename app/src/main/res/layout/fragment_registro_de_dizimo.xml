@@ -111,38 +111,37 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <FrameLayout
-                android:id="@+id/frameLayout"
+            <LinearLayout
+                android:id="@+id/layout_btn_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/double_of_default_size"
                 android:background="@drawable/bg_btn"
+                android:gravity="center"
+                android:padding="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_3">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_registrar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:background="@android:color/transparent"
-                    android:text="@string/word_registrar"
-                    android:textSize="16sp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
 
                 <ProgressBar
                     android:id="@+id/pb_registro_de_dizimos"
                     android:layout_width="@dimen/progress_bar_size"
                     android:layout_height="@dimen/progress_bar_size"
-                    android:layout_gravity="center"
                     android:indeterminateTint="@color/white"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
+                    android:visibility="gone" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_registrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="@string/word_registrar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
 
-            </FrameLayout>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
