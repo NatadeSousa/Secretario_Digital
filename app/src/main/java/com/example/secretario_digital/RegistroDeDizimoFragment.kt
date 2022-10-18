@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -19,6 +20,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.secretario_digital.model.Dizimo
@@ -30,6 +32,8 @@ import com.marcoscg.currencyedittext.CurrencyEditText
 import com.santalu.maskara.widget.MaskEditText
 import com.example.secretario_digital.R
 import com.example.secretario_digital.databinding.FragmentRegistroDeDizimoBinding
+import com.example.secretario_digital.helper.isNetworkAvailable
+import com.example.secretario_digital.helper.showBottomDialog
 import java.lang.String.valueOf
 
 
@@ -204,40 +208,37 @@ class RegistroDeDizimoFragment : Fragment() {
         val dizimoDouble = editDizimo.getNumericValue()
         val data = editData.text.toString().trim()
 
-        if ((nome.isNotEmpty()) && (nome != getString(R.string.word_nome))) {
-            if (dizimoDouble >= 1.00) {
-                if (data.isNotEmpty()) {
-                    if (data.length == 10) {
+        if(isNetworkAvailable(requireContext())){
+            if ((nome.isNotEmpty()) && (nome != getString(R.string.word_nome))) {
+                if (dizimoDouble >= 1.00) {
+                    if (data.isNotEmpty()) {
+                        if (data.length == 10) {
 
-                        btnRegistrar.visibility = View.GONE
-                        layoutBtnRegistrar.setPadding(16,16,16,16)
-                        pbRegistroDeDizimo.visibility = View.VISIBLE
-                        Log.i(MSG,"PbRegistro visibilidade: ${pbRegistroDeDizimo.visibility}")
+                            btnRegistrar.visibility = View.GONE
+                            layoutBtnRegistrar.setPadding(20,20,20,20)
+                            pbRegistroDeDizimo.visibility = View.VISIBLE
 
-                        with(dizimoAtual){
-                            dataDizimo = data
-                            valorDizimo = dizimo
-                            nomeDizimista = nome
+                            with(dizimoAtual){
+                                dataDizimo = data
+                                valorDizimo = dizimo
+                                nomeDizimista = nome
+                            }
+
+                            saveData()
+                        } else {
+                            showBottomDialog(message = R.string.text_data_invalida_dizimo)
                         }
-
-                        saveData()
                     } else {
-                        Toast.makeText(
-                            context, "Informe uma data válida!", Toast.LENGTH_LONG
-                        ).show()
+                        showBottomDialog(message = R.string.text_data_dizimo)
                     }
                 } else {
-                    Toast.makeText(
-                        context, "Informe a data!", Toast.LENGTH_LONG
-                    ).show()
+                    showBottomDialog(message = R.string.text_valor_dizimo)
                 }
             } else {
-                Toast.makeText(
-                    context, "Informe um valor válido para o dízimo!", Toast.LENGTH_LONG
-                ).show()
+                showBottomDialog(message = R.string.text_nome_dizimista)
             }
-        } else {
-            Toast.makeText(context, "Informe o nome do dizimista!", Toast.LENGTH_LONG).show()
+        }else{
+            showBottomDialog(message = R.string.text_conexao_internet)
         }
 
     }
@@ -249,13 +250,12 @@ class RegistroDeDizimoFragment : Fragment() {
             .child("dizimos")
             .child("Nome: $nomeFormatado")
             .setValue(dizimoAtual).addOnCompleteListener(requireActivity()){ task ->
-                if(task.isSuccessful){
-                    //VALIDAR O ERRO DE QUANDO O USUÁRIO NÃO ESTIVER CONECTADO À INTERNET
-                    Toast.makeText(context, "Dízimo registrado!", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
+                if(task.isSuccessful){ //VALIDAR O ERRO DE QUANDO O USUÁRIO NÃO ESTIVER CONECTADO À INTERNET
                     layoutBtnRegistrar.setPadding(0,0,0,0)
                     pbRegistroDeDizimo.visibility = View.GONE
                     btnRegistrar.visibility = View.VISIBLE
+                    showBottomDialog(message = R.string.text_dizimo_registrado)
+                    findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
                 }else{
                     Toast.makeText(context, "Tente novamente mais tarde!", Toast.LENGTH_SHORT).show()
                     layoutBtnRegistrar.setPadding(0,0,0,0)
@@ -263,10 +263,6 @@ class RegistroDeDizimoFragment : Fragment() {
                     btnRegistrar.visibility = View.VISIBLE
                 }
             }
-
-
-
-
     }
 
     private fun setBtnNome() {

@@ -6,9 +6,11 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--RegistroDeDizimoFragment-->
     <string name="word_dizimos">Dízimos</string>
     <string name="word_nome">Nome</string>
     <string name="word_null">null</string>
@@ -18,8 +20,18 @@
     <string name="text_nome">Nome</string>
     <string name="text_valor">Valor</string>
     <string name="text_data">Data</string>
-    <string name="edit_dizimo">1000</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--Bottom Sheet Dialog-->
     <string name="text_escolha">Selecione o dizimista</string>
+    <string name="text_nome_dizimista">Informe o nome do dizimista!</string>
+    <string name="text_valor_dizimo">Informe um valor válido para o dízimo!</string>
+    <string name="text_data_dizimo">Informe a data em que foi realizado o dízimo!</string>
+    <string name="text_data_invalida_dizimo">Informe uma data válida!</string>
+    <string name="text_dizimo_registrado">O dízimo foi registrado com sucesso!</string>
+    <string name="text_conexao_internet">Você não está conectado à internet
+        !</string>
+
+    <string name="word_entendi">Entendi</string>
+    <string name="word_atençao">Atenção</string>
 </resources>

@@ -118,7 +118,7 @@
                 android:layout_marginVertical="@dimen/double_of_default_size"
                 android:background="@drawable/bg_btn"
                 android:gravity="center"
-                android:padding="2dp"
+                android:padding="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_3">
