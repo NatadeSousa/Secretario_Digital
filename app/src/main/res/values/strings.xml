@@ -28,10 +28,30 @@
     <string name="text_valor_dizimo">Informe um valor válido para o dízimo!</string>
     <string name="text_data_dizimo">Informe a data em que foi realizado o dízimo!</string>
     <string name="text_data_invalida_dizimo">Informe uma data válida!</string>
+    <string name="text_ano_informado_maior">Não é possível informar um ano maior do que o atual!</string>
+    <string name="text_ano_informado_menor">Não é possível informar um ano anterior a 2000!</string>
+    <string name="text_mes_invalido">Informe um mês válido!</string>
+    <string name="text_dia_invalido">Informe um dia válido!</string>
+    <string name="text_dia_nao_existe">O mês escolhido não possui esse dia!</string>
     <string name="text_dizimo_registrado">O dízimo foi registrado com sucesso!</string>
-    <string name="text_conexao_internet">Você não está conectado à internet
-        !</string>
+    <string name="text_conexao_internet">Você não está conectado à internet</string>
 
     <string name="word_entendi">Entendi</string>
     <string name="word_atençao">Atenção</string>
+
+    <!--Dias do mês-->
+    <string name="word_janeiro">Janeiro</string>
+    <string name="word_fevereiro">Fevereiro</string>
+    <string name="word_março">Março</string>
+    <string name="word_abril">Abril</string>
+    <string name="word_maio">Maio</string>
+    <string name="word_junho">Junho</string>
+    <string name="word_julho">Julho</string>
+    <string name="word_agosto">Agosto</string>
+    <string name="word_setembro">Setembro</string>
+    <string name="word_outubro">Outubro</string>
+    <string name="word_novembro">Novembro</string>
+    <string name="word_dezembro">Dezembro</string>
+
+
 </resources>

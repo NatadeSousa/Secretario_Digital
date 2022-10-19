@@ -18,13 +18,14 @@ class AdapterTraining(
     private val context: Context?,
     private val dataset: List<String>
 ) : RecyclerView.Adapter<AdapterTraining.ItemViewHolder>(){
+
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         val textView: TextView = view.findViewById(R.id.text_nome_dizimista)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_membro, parent,false)
+            .inflate(R.layout.item_membro,parent,false)
         return ItemViewHolder(adapterLayout)
     }
 
@@ -38,4 +39,5 @@ class AdapterTraining(
     }
 
     override fun getItemCount() = dataset.size
+
 }
