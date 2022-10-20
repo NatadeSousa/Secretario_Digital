@@ -1,5 +1,6 @@
 package com.example.secretario_digital.adapter
 
+import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -26,7 +27,7 @@ class AdapterTraining(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_membro,parent,false)
-        return ItemViewHolder(adapterLayout)
+        return  ItemViewHolder(adapterLayout)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

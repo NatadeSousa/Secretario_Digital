@@ -7,14 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.example.secretario_digital.adapter.AdapterListaDeDizimos
 import com.example.secretario_digital.databinding.FragmentListaDeDizimosBinding
+import com.example.secretario_digital.helper.FirebaseHelper
 
 class ListaDeDizimos : Fragment() {
 
     private var _binding: FragmentListaDeDizimosBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var recyclerView: RecyclerView
     lateinit var btnDizimo: AppCompatImageButton
+
+    private lateinit var dataSet: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,7 @@ class ListaDeDizimos : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         referComponents()
+        setRv()
         setClicks()
 
     }
@@ -42,12 +49,21 @@ class ListaDeDizimos : Fragment() {
         _binding = null
     }
 
+    private fun fillDataset(){
+//        FirebaseHelper.getDatabase()
+//            .child("dizimos")
+    }
 
+    //DESCOBRIR COMO RECUPERAR DADOS DO BANCO DE DADOS E PASSAR PRA LISTA DO ADAPTER
+    private fun setRv(){
+//        recyclerView.adapter = AdapterListaDeDizimos(requireContext(), )
+//        recyclerView.setHasFixedSize(true)
+
+    }
 
     private fun setClicks(){
         btnDizimo.setOnClickListener {
-            val action = ListaDeDizimosDirections.actionListaDeDizimosToRegistroDeDizimoFragment("Nome")
-            findNavController().navigate(action)
+            findNavController().navigate(R.id.action_listaDeDizimos_to_registroDeDizimoFragment)
         }
     }
 

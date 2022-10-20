@@ -41,16 +41,16 @@ public fun isDayRight(currentDay: Int, currentMonth: Int, currentYear: Int): Boo
                 if(currentDay <= 29) return true
             }
         }
-        3 -> if(currentDay <= 31 && currentDay != 29) return true
-        4 -> if(currentDay <= 30 && currentDay != 29) return true
-        5 -> if(currentDay <= 31 && currentDay != 29) return true
-        6 -> if(currentDay <= 30 && currentDay != 29) return true
-        7 -> if(currentDay <= 31 && currentDay != 29) return true
-        8 -> if(currentDay <= 31 && currentDay != 29) return true
-        9 -> if(currentDay <= 30 && currentDay != 29) return true
-        10 -> if(currentDay <= 31 && currentDay != 29) return true
-        11 -> if(currentDay <= 30 && currentDay != 29) return true
-        12 -> if(currentDay <= 31 && currentDay != 29) return true
+        3 -> if(currentDay <= 31) return true
+        4 -> if(currentDay <= 30) return true
+        5 -> if(currentDay <= 31) return true
+        6 -> if(currentDay <= 30) return true
+        7 -> if(currentDay <= 31) return true
+        8 -> if(currentDay <= 31) return true
+        9 -> if(currentDay <= 30) return true
+        10 -> if(currentDay <= 31) return true
+        11 -> if(currentDay <= 30) return true
+        12 -> if(currentDay <= 31) return true
     }
     return false
 }

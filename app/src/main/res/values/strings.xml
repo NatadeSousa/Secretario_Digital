@@ -28,8 +28,11 @@
     <string name="text_valor_dizimo">Informe um valor válido para o dízimo!</string>
     <string name="text_data_dizimo">Informe a data em que foi realizado o dízimo!</string>
     <string name="text_data_invalida_dizimo">Informe uma data válida!</string>
-    <string name="text_ano_informado_maior">Não é possível informar um ano maior do que o atual!</string>
+    <string name="text_ano_informado_maior">O ano informado é maior do que o atual!</string>
+    <string name="text_mes_informado_maior">O mês informado é maior do que o atual!</string>
+    <string name="text_dia_informado_maior">O dia informado é maior do que o atual!</string>
     <string name="text_ano_informado_menor">Não é possível informar um ano anterior a 2000!</string>
+    <string name="text_ano_invalido">Informe um ano válido!</string>
     <string name="text_mes_invalido">Informe um mês válido!</string>
     <string name="text_dia_invalido">Informe um dia válido!</string>
     <string name="text_dia_nao_existe">O mês escolhido não possui esse dia!</string>

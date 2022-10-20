@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,15 +20,9 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.secretario_digital.databinding.FragmentRegistroDeDizimoBinding
-import com.example.secretario_digital.helper.getCurrentMonth
-import com.example.secretario_digital.helper.isDayRight
-import com.example.secretario_digital.helper.isNetworkAvailable
-import com.example.secretario_digital.helper.showBottomDialog
+import com.example.secretario_digital.helper.*
 import com.example.secretario_digital.model.Dizimo
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.marcoscg.currencyedittext.CurrencyEditText
 import com.santalu.maskara.widget.MaskEditText
 import java.util.*
@@ -44,7 +37,6 @@ class RegistroDeDizimoFragment : Fragment() {
 
     private val dizimoAtual = Dizimo()
 
-    private lateinit var databaseReference: DatabaseReference
     private lateinit var layoutBtnRegistrar: LinearLayout
     lateinit var inputLayout2: TextInputLayout
     lateinit var inputLayout3: TextInputLayout
@@ -58,7 +50,7 @@ class RegistroDeDizimoFragment : Fragment() {
 
     var ano: Int? = 0
     var mes: Int? = 0
-    var day: Int? = 0
+    var dia: Int? = 0
     var color: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,12 +90,11 @@ class RegistroDeDizimoFragment : Fragment() {
         setClicks()
 
         val sharedPreferences = context?.getSharedPreferences("FILE_PREFERENCES", MODE_PRIVATE)
-
         val spData = sharedPreferences?.getString(KEY_DATE, "spData")
-
         if (spData != "spData" && spData != "null" && spData != null) {
             editData.setText(spData.toString())
         }
+
     }
 
     override fun onDestroyView() {
@@ -215,6 +206,8 @@ class RegistroDeDizimoFragment : Fragment() {
         val dataFormatada = data.replace("/", "")
         val c = Calendar.getInstance()
         val anoDispositivo = c.get(Calendar.YEAR)
+        val mesDispositivo = c.get(Calendar.MONTH) + 1
+        val diaDispositivo = c.get(Calendar.DAY_OF_MONTH)
 
         if (isNetworkAvailable(requireContext())) {
             if ((nome.isNotEmpty()) && (nome != getString(R.string.word_nome))) {
@@ -223,124 +216,149 @@ class RegistroDeDizimoFragment : Fragment() {
                         if (data.length == 10) {
                             ano = dataFormatada.substring(4).toInt()
                             mes = dataFormatada.substring(2, 4).toInt()
-                            day = dataFormatada.substring(0, 2).toInt()
+                            dia = dataFormatada.substring(0, 2).toInt()
                             if (ano!! <= anoDispositivo) {
-                                if (ano!! >= 2000) {
-                                    if (mes!! < 13 && mes != 0) {
-                                        if (day != 0) {
-                                            if (isDayRight(day!!, mes!!,ano!!)){
+                                if (ano!! != 0) {
+                                    if (ano!! >= 2000) {
+                                        if (mes!! < 13) {
+                                            if ((ano == anoDispositivo && mes!! <= mesDispositivo) || (ano != anoDispositivo)) {
+                                                if (mes != 0) {
+                                                    if (dia != 0) {
+                                                        if (((mes == mesDispositivo) && (ano == anoDispositivo) && (dia!! <= diaDispositivo))
+                                                            || ((mes != mesDispositivo) && (ano != anoDispositivo))
+                                                            || ((mes == mesDispositivo) && (ano != anoDispositivo))
+                                                        ) {
+                                                            //TALVEZ POSSA HAVER MAIS UM ERRO RELACIONADO A VALIDAÇÃO PRA VER SE MES OU DIA É MAIOR DO QUE ATUAL,
+                                                            //CASO O ANO SEJA O MESMO, MAS NÃO SEI. CONFIGURAR ADAPTER LENDO DADOS NO DB NA LISTADEDIZIMOS FRAGMENT
+                                                            if (isDayRight(dia!!, mes!!, ano!!)) {
 
-                                            btnRegistrar.visibility = View.GONE
-                                            layoutBtnRegistrar.setPadding(20, 20, 20, 20)
-                                            pbRegistroDeDizimo.visibility = View.VISIBLE
+                                                                btnRegistrar.visibility = View.GONE
+                                                                layoutBtnRegistrar.setPadding(
+                                                                    20,
+                                                                    20,
+                                                                    20,
+                                                                    20
+                                                                )
+                                                                pbRegistroDeDizimo.visibility =
+                                                                    View.VISIBLE
 
-                                            with(dizimoAtual) {
-                                                dataDizimo = data
-                                                valorDizimo = dizimo
-                                                nomeDizimista = nome
+                                                                with(dizimoAtual) {
+                                                                    dataDizimo = data
+                                                                    valorDizimo = dizimo
+                                                                    nomeDizimista = nome
+                                                                }
+
+                                                                saveData()
+                                                            } else {
+                                                                showBottomDialog(message = (R.string.text_dia_nao_existe))
+                                                            }
+                                                        } else {
+                                                            showBottomDialog(message = R.string.text_dia_informado_maior)
+                                                        }
+                                                    } else {
+                                                        showBottomDialog(message = R.string.text_dia_invalido)
+                                                    }
+                                                } else {
+                                                    showBottomDialog(message = R.string.text_mes_invalido)
+                                                }
+                                            } else {
+                                                showBottomDialog(message = R.string.text_mes_informado_maior)
                                             }
-
-                                            saveData()
                                         } else {
-                                            showBottomDialog(message = (R.string.text_dia_nao_existe))
+                                            showBottomDialog(message = R.string.text_mes_invalido)
                                         }
                                     } else {
-                                        showBottomDialog(message = R.string.text_dia_invalido)
+                                        showBottomDialog(message = R.string.text_ano_informado_menor)
                                     }
                                 } else {
-                                    showBottomDialog(message = R.string.text_mes_invalido)
+                                    showBottomDialog(message = R.string.text_ano_invalido)
                                 }
                             } else {
-                                showBottomDialog(message = R.string.text_ano_informado_menor)
+                                showBottomDialog(message = R.string.text_ano_informado_maior)
                             }
                         } else {
-                            showBottomDialog(message = R.string.text_ano_informado_maior)
+                            showBottomDialog(message = R.string.text_data_invalida_dizimo)
                         }
                     } else {
-                        showBottomDialog(message = R.string.text_data_invalida_dizimo)
+                        showBottomDialog(message = R.string.text_data_dizimo)
                     }
                 } else {
-                    showBottomDialog(message = R.string.text_data_dizimo)
+                    showBottomDialog(message = R.string.text_valor_dizimo)
                 }
             } else {
-                showBottomDialog(message = R.string.text_valor_dizimo)
+                showBottomDialog(message = R.string.text_nome_dizimista)
             }
         } else {
-            showBottomDialog(message = R.string.text_nome_dizimista)
+            showBottomDialog(message = R.string.text_conexao_internet)
         }
-    }else
-    {
-        showBottomDialog(message = R.string.text_conexao_internet)
     }
 
-}
+    private fun saveData() {
 
-private fun saveData() {
+        val nomeFormatado = dizimoAtual.nomeDizimista?.replace(".", "")
+        val dataFormatada = dizimoAtual.dataDizimo?.replace("/", "")
 
-    val nomeFormatado = dizimoAtual.nomeDizimista?.replace(".", "")
-    val dataFormatada = dizimoAtual.dataDizimo?.replace("/", "")
+        val mesInformado = dataFormatada?.substring(2, 4)
+        val anoDizimo = dataFormatada?.substring(4)
 
-    val mesInformado = dataFormatada?.substring(2, 4)
-    val anoDizimo = dataFormatada?.substring(4)
+        val mesDizimo = getCurrentMonth(mesInformado.toString())
 
-    val mesDizimo = getCurrentMonth(mesInformado.toString())
-
-    databaseReference
-        .child("dizimos")
-        .child(anoDizimo!!)
-        .child(mesDizimo)
-        .child("$nomeFormatado")
-        .setValue(dizimoAtual).addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful) {
-                layoutBtnRegistrar.setPadding(0, 0, 0, 0)
-                pbRegistroDeDizimo.visibility = View.GONE
-                btnRegistrar.visibility = View.VISIBLE
-                showBottomDialog(message = R.string.text_dizimo_registrado)
-                findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
-            } else {
-                Toast.makeText(context, "Tente novamente mais tarde!", Toast.LENGTH_SHORT).show()
-                layoutBtnRegistrar.setPadding(0, 0, 0, 0)
-                pbRegistroDeDizimo.visibility = View.GONE
-                btnRegistrar.visibility = View.VISIBLE
+        FirebaseHelper.getDatabase()
+            .child("dizimos")
+            .child(anoDizimo!!)
+            .child(mesDizimo)
+            .child("$nomeFormatado")
+            .setValue(dizimoAtual).addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    layoutBtnRegistrar.setPadding(0, 0, 0, 0)
+                    pbRegistroDeDizimo.visibility = View.GONE
+                    btnRegistrar.visibility = View.VISIBLE
+                    showBottomDialog(message = R.string.text_dizimo_registrado)
+                    findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
+                } else {
+                    Toast.makeText(context, "Tente novamente mais tarde!", Toast.LENGTH_SHORT)
+                        .show()
+                    layoutBtnRegistrar.setPadding(0, 0, 0, 0)
+                    pbRegistroDeDizimo.visibility = View.GONE
+                    btnRegistrar.visibility = View.VISIBLE
+                }
             }
+    }
+
+    private fun setBtnNome() {
+        if ((nomeDizimista != getString(R.string.word_null)) && (nomeDizimista != getString(R.string.word_nome))) {
+            btnNome.text = nomeDizimista
+            color = Color.parseColor("#FFFFFF")
+            btnNome.setTextColor(color)
+            btnNome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checked, 0, 0, 0)
+        } else {
+            btnNome.text = getString(R.string.word_nome)
+            color = Color.parseColor("#3C4B68")
+            btnNome.setTextColor(color)
+            btnNome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_small_arrow, 0, 0, 0)
         }
-}
-
-private fun setBtnNome() {
-    if ((nomeDizimista != getString(R.string.word_null)) && (nomeDizimista != getString(R.string.word_nome))) {
-        btnNome.text = nomeDizimista
-        color = Color.parseColor("#FFFFFF")
-        btnNome.setTextColor(color)
-        btnNome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checked, 0, 0, 0)
-    } else {
-        btnNome.text = getString(R.string.word_nome)
-        color = Color.parseColor("#3C4B68")
-        btnNome.setTextColor(color)
-        btnNome.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_small_arrow, 0, 0, 0)
     }
-}
 
-private fun hideKeyboard(context: Context, view: View) {
-    val inputMethodManager =
-        context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-    if (inputMethodManager != null && inputMethodManager.isActive) {
-        //inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-        //InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    private fun hideKeyboard(context: Context, view: View) {
+        val inputMethodManager =
+            context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        if (inputMethodManager != null && inputMethodManager.isActive) {
+            //inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            //InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
-}
 
-private fun referComponents() {
-    databaseReference = Firebase.database.reference
-    layoutBtnRegistrar = binding.layoutBtnRegistrar
-    inputLayout2 = binding.inputLayout2
-    inputLayout3 = binding.inputLayout3
-    editDizimo = binding.editDizimo
-    editData = binding.editData
-    pbRegistroDeDizimo = binding.pbRegistroDeDizimos
-    btnVoltar = binding.include2.btnVoltar
-    btnNome = binding.btnNome
-    btnRegistrar = binding.btnRegistrar
-}
+    private fun referComponents() {
+        layoutBtnRegistrar = binding.layoutBtnRegistrar
+        inputLayout2 = binding.inputLayout2
+        inputLayout3 = binding.inputLayout3
+        editDizimo = binding.editDizimo
+        editData = binding.editData
+        pbRegistroDeDizimo = binding.pbRegistroDeDizimos
+        btnVoltar = binding.include2.btnVoltar
+        btnNome = binding.btnNome
+        btnRegistrar = binding.btnRegistrar
+    }
 
 }
