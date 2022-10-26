@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secretario_digital.adapter.AdapterListaDeMembros
 import com.example.secretario_digital.data.Membros
-import com.example.secretario_digital.databinding.FragmentListaDeDizimosBinding
 import com.example.secretario_digital.databinding.FragmentListaDeMembrosBinding
 
 class ListaDeMembros : Fragment() {

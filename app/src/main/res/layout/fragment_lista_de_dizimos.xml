@@ -15,14 +15,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_lista_de_dizimos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_dizimo"
+        tools:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include3"
         app:layout_constraintVertical_bias="0.523" />
+
+    <TextView
+        android:id="@+id/text_info_dizimo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/word_carregando"
+        android:textColor="@color/light_blue"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pb_lista_de_dizimo"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
+        android:layout_marginTop="12dp"
+        android:indeterminateTint="@color/green"
+        app:layout_constraintEnd_toEndOf="@+id/text_info_dizimo"
+        app:layout_constraintStart_toStartOf="@+id/text_info_dizimo"
+        app:layout_constraintTop_toBottomOf="@+id/text_info_dizimo" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_dizimo"
@@ -31,7 +58,7 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="@dimen/default_size"
         android:background="@drawable/bg_round"
-        android:padding="12dp"
+        android:padding="18dp"
         android:src="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
