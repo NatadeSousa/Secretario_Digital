@@ -13,6 +13,7 @@ import com.example.secretario_digital.ListaDeMembrosDirections
 import com.example.secretario_digital.RegistroDeDizimoFragment
 import com.example.secretario_digital.R
 import com.example.secretario_digital.RegistroDeDizimoFragmentDirections
+import com.example.secretario_digital.databinding.FragmentListaDeMembrosBinding
 import org.w3c.dom.Text
 
 class AdapterTraining(
@@ -27,16 +28,18 @@ class AdapterTraining(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_membro,parent,false)
-        return  ItemViewHolder(adapterLayout)
+        return ItemViewHolder(adapterLayout)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item: String = dataset[position]
+
         holder.textView.text = item
         holder.itemView.setOnClickListener {
             val action = ListaDeMembrosDirections.actionListaDeMembrosToRegistroDeDizimoFragment(item)
             findNavController(holder.itemView).navigate(action)
         }
+
     }
 
     override fun getItemCount() = dataset.size

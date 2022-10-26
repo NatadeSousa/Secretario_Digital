@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.example.secretario_digital.R
 import com.example.secretario_digital.databinding.BottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.util.Calendar
+
 
 fun Fragment.showBottomDialog(
     titleDialog: Int? = null,
@@ -34,11 +36,17 @@ fun Fragment.showBottomDialog(
 }
 
 
+
+
+
+
 fun isNetworkAvailable(context: Context?): Boolean {
     if (context == null) return false
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
             when {
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {

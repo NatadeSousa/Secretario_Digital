@@ -1,18 +1,20 @@
 package com.example.secretario_digital.adapter
 
 import android.content.Context
+import android.provider.Settings.Secure.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secretario_digital.R
+import com.example.secretario_digital.model.Dizimo
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class AdapterListaDeDizimos(
     private val context: Context?,
-    private val dataset: List<String>
+    private val dataset: List<Dizimo>
 ) : RecyclerView.Adapter<AdapterListaDeDizimos.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
@@ -28,8 +30,11 @@ class AdapterListaDeDizimos(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val dizimoAtual = dataset[position]
+        val dizimoAtual: Dizimo = dataset[position]
 
+        holder.nome.text = "Nome: " + dizimoAtual.nomeDizimista
+        holder.dizimo.text = "Dízimo: " + dizimoAtual.valorDizimo
+        holder.data.text = "Data: " + dizimoAtual.dataDizimo
     }
 
     override fun getItemCount() = dataset.size

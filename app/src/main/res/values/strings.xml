@@ -20,6 +20,11 @@
     <string name="text_nome">Nome</string>
     <string name="text_valor">Valor</string>
     <string name="text_data">Data</string>
+    
+    <!--ListaDeDizimoFragment-->
+    <string name="text_nenhum_dizimo">Nenhum dízimo registrado nesse período!</string>
+    <string name="erro_db">Não foi possível recuperar os dados. Tente novamente mais tarde!</string>
+    <string name="word_carregando">Carregando...</string>
 
 
     <!--Bottom Sheet Dialog-->
@@ -37,6 +42,7 @@
     <string name="text_dia_invalido">Informe um dia válido!</string>
     <string name="text_dia_nao_existe">O mês escolhido não possui esse dia!</string>
     <string name="text_dizimo_registrado">O dízimo foi registrado com sucesso!</string>
+    <string name="text_erro_db">Não conseguimos recuperar os dízimos deste mês. Tente novamente mais tarde!</string>
     <string name="text_conexao_internet">Você não está conectado à internet</string>
 
     <string name="word_entendi">Entendi</string>
@@ -55,6 +61,7 @@
     <string name="word_outubro">Outubro</string>
     <string name="word_novembro">Novembro</string>
     <string name="word_dezembro">Dezembro</string>
+    
 
 
 </resources>

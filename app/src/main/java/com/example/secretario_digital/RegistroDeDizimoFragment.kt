@@ -227,6 +227,7 @@ class RegistroDeDizimoFragment : Fragment() {
                                                         if (((mes == mesDispositivo) && (ano == anoDispositivo) && (dia!! <= diaDispositivo))
                                                             || ((mes != mesDispositivo) && (ano != anoDispositivo))
                                                             || ((mes == mesDispositivo) && (ano != anoDispositivo))
+                                                            || ((mes != mesDispositivo) && (ano == anoDispositivo))
                                                         ) {
                                                             //TALVEZ POSSA HAVER MAIS UM ERRO RELACIONADO A VALIDAÇÃO PRA VER SE MES OU DIA É MAIOR DO QUE ATUAL,
                                                             //CASO O ANO SEJA O MESMO, MAS NÃO SEI. CONFIGURAR ADAPTER LENDO DADOS NO DB NA LISTADEDIZIMOS FRAGMENT
@@ -301,28 +302,28 @@ class RegistroDeDizimoFragment : Fragment() {
         val mesInformado = dataFormatada?.substring(2, 4)
         val anoDizimo = dataFormatada?.substring(4)
 
-        val mesDizimo = getCurrentMonth(mesInformado.toString())
-
-        FirebaseHelper.getDatabase()
-            .child("dizimos")
-            .child(anoDizimo!!)
-            .child(mesDizimo)
-            .child("$nomeFormatado")
-            .setValue(dizimoAtual).addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    layoutBtnRegistrar.setPadding(0, 0, 0, 0)
-                    pbRegistroDeDizimo.visibility = View.GONE
-                    btnRegistrar.visibility = View.VISIBLE
-                    showBottomDialog(message = R.string.text_dizimo_registrado)
-                    findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
-                } else {
-                    Toast.makeText(context, "Tente novamente mais tarde!", Toast.LENGTH_SHORT)
-                        .show()
-                    layoutBtnRegistrar.setPadding(0, 0, 0, 0)
-                    pbRegistroDeDizimo.visibility = View.GONE
-                    btnRegistrar.visibility = View.VISIBLE
+        if (mesInformado != null) {
+            FirebaseHelper.getDatabase()
+                .child("dizimos")
+                .child(anoDizimo!!)
+                .child(mesInformado)
+                .child("$nomeFormatado")
+                .setValue(dizimoAtual).addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        layoutBtnRegistrar.setPadding(0, 0, 0, 0)
+                        pbRegistroDeDizimo.visibility = View.GONE
+                        btnRegistrar.visibility = View.VISIBLE
+                        showBottomDialog(message = R.string.text_dizimo_registrado)
+                        findNavController().navigate(R.id.action_registroDeDizimoFragment_to_listaDeDizimos)
+                    } else {
+                        Toast.makeText(context, "Tente novamente mais tarde!", Toast.LENGTH_SHORT)
+                            .show()
+                        layoutBtnRegistrar.setPadding(0, 0, 0, 0)
+                        pbRegistroDeDizimo.visibility = View.GONE
+                        btnRegistrar.visibility = View.VISIBLE
+                    }
                 }
-            }
+        }
     }
 
     private fun setBtnNome() {
